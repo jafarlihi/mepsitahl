@@ -1,0 +1,3 @@
+- Fix make on kernel not detecting changes right
+- Fix makefile dir creation ---> mkdir -p $(@D) <--- ???
+- Add .gitignore

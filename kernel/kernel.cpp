@@ -3,6 +3,7 @@
 #include "limine.h"
 #include "libk.hpp"
 #include "console.hpp"
+#include "idt.hpp"
 
 void *operator new(size_t bytes, void *ptr) { return ptr; };
 
@@ -69,6 +70,8 @@ extern "C" void _start(void) {
   alignas(Console) char console_memory[sizeof(Console)];
   console = new (console_memory) Console(framebuffer, font);
   console->print_line("Henlo der");
+
+  init_idt();
 
   hcf();
 }

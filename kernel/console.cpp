@@ -1,8 +1,6 @@
 #include "console.hpp"
 #include "libk.hpp"
 
-Console console;
-
 void Console::init(FrameBuffer framebuffer, PSF1_Font font) {
   this->framebuffer = framebuffer;
   this->font = font;

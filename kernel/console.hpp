@@ -48,4 +48,4 @@ class Console {
     uint32_t y_position;
 };
 
-extern Console console;
+extern Console *console;

@@ -4,6 +4,10 @@
 #include "libk.hpp"
 #include "console.hpp"
 
+void *operator new(size_t bytes, void *ptr) { return ptr; };
+
+Console *console;
+
 static volatile struct limine_framebuffer_request framebuffer_request = {
   .id = LIMINE_FRAMEBUFFER_REQUEST,
   .revision = 0
@@ -62,8 +66,9 @@ extern "C" void _start(void) {
   if (font.psf_header->magic[0] != 0x36 || font.psf_header->magic[1] != 0x04) hcf();
   font.glyph_buffer = (void *)((uint64_t)file->address + sizeof(PSF1_Header));
 
-  Console console = Console(framebuffer, font);
-  console.print_line("Henlo der");
+  alignas(Console) char console_memory[sizeof(Console)];
+  console = new (console_memory) Console(framebuffer, font);
+  console->print_line("Henlo der");
 
   hcf();
 }

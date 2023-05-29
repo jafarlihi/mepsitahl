@@ -44,12 +44,8 @@ static void hcf(void) {
 }
 
 extern "C" void _start(void) {
-  if (framebuffer_request.response == NULL || framebuffer_request.response->framebuffer_count < 1) {
-    hcf();
-  }
-
+  if (framebuffer_request.response == NULL || framebuffer_request.response->framebuffer_count < 1) hcf();
   struct limine_framebuffer *limine_framebuffer = framebuffer_request.response->framebuffers[0];
-
   FrameBuffer framebuffer;
   framebuffer.base = limine_framebuffer->address;
   framebuffer.size = limine_framebuffer->height * limine_framebuffer->pitch;
@@ -57,20 +53,13 @@ extern "C" void _start(void) {
   framebuffer.vertical_res = limine_framebuffer->height;
   framebuffer.pixels_per_scanline = limine_framebuffer->pitch / 4;
 
-  if (module_request.response == NULL) {
-    hcf();
-  }
-
+  if (module_request.response == NULL) hcf();
   PSF1_Font font;
   const char *font_name = "zap-light16.psf";
   struct limine_file *file = get_limine_file(font_name);
-  if (file == NULL) {
-    hcf();
-  }
+  if (file == NULL) hcf();
   font.psf_header = (PSF1_Header *)file->address;
-  if (font.psf_header->magic[0] != 0x36 || font.psf_header->magic[1] != 0x04) {
-    hcf();
-  }
+  if (font.psf_header->magic[0] != 0x36 || font.psf_header->magic[1] != 0x04) hcf();
   font.glyph_buffer = (void *)((uint64_t)file->address + sizeof(PSF1_Header));
 
   Console console = Console(framebuffer, font);

@@ -111,8 +111,6 @@
   iretq
 .endm
 
-.section text
-
 isr0:
   isr 0
   isr_body

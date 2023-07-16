@@ -1,6 +1,7 @@
 mkdir -p build
-meson setup --cross-file=uefi.cross-file build
-cd build
+cd uefi
+meson setup --cross-file=uefi.cross-file ../build
+cd ../build
 ninja
 
 cp /usr/share/ovmf/x64/OVMF.fd .

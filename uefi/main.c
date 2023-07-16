@@ -6,6 +6,10 @@
   if (EFI_ERROR((x)))                                                          \
   return (x)
 
+EFI_STATUS load_image(CHAR16 *path) {
+  
+}
+
 EFI_STATUS efi_main(EFI_HANDLE image_handle, EFI_SYSTEM_TABLE *system_table) {
   EFI_STATUS status;
 
